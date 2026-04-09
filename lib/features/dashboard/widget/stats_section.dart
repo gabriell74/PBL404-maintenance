@@ -5,45 +5,59 @@ class StatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stats = [
-      {
-        "title": "Total Domba",
-        "value": "120",
-        "icon": Icons.pets,
-        "color": Colors.green,
-      },
-      {
-        "title": "Siap Breeding",
-        "value": "98",
-        "icon": Icons.favorite,
-        "color": const Color.fromARGB(255, 245, 226, 58),
-      },
-      {
-        "title": "Sedang Bunting",
-        "value": "15",
-        "icon": Icons.access_time,
-        "color": Color.fromARGB(255, 92, 188, 226),
-      },
-      {
-        "title": "Perlu Diperhatikan",
-        "value": "7",
-        "icon": Icons.timeline,
-        "color": Color.fromARGB(255, 227, 94, 92),
-      },
+    const stats = [
+      _StatItem(title: 'Total Domba', value: '120', icon: Icons.pets_rounded),
+      _StatItem(title: 'Siap Breeding', value: '98', icon: Icons.favorite_rounded),
+      _StatItem(title: 'Sedang Bunting', value: '15', icon: Icons.access_time_rounded),
+      _StatItem(title: 'Perlu Diperhatikan', value: '7', icon: Icons.warning_amber_rounded),
+    ];
+
+    // Gradient per card: semua ungu-indigo, tapi arah & stop sedikit beda
+    const gradients = [
+      LinearGradient(
+        colors: [Color(0xFF2044BD), Color(0xFF66BB6A)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      LinearGradient(
+        colors: [Color(0xFF66BB6A), Color(0xFF2044BD)],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ),
+      LinearGradient(
+        colors: [Color(0xFF2044BD), Color(0xFF66BB6A)],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ),
+      LinearGradient(
+        colors: [Color(0xFF2044BD), Color(0xFF66BB6A)],
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
+      ),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Statistik Kandang',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 115, 115, 115),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Statistik Kandang',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 115, 115, 115),
+              ),
+            ),
+            Text(
+              'Hari ini',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+            ),
+          ],
         ),
-        const SizedBox(height: 5),
+
+        const SizedBox(height: 12),
 
         GridView.builder(
           itemCount: stats.length,
@@ -51,66 +65,88 @@ class StatsSection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.4,
           ),
-          itemBuilder: (context, index) {
-            final item = stats[index];
-
-            return Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.04),
-                    blurRadius: 8,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: (item["color"] as Color).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      item["icon"] as IconData,
-                      color: item["color"] as Color,
-                      size: 25,
-                    ),
-                  ),
-
-                  const Spacer(),
-
-                  Text(
-                    item["value"] as String,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: item["color"] as Color,
-                    ),
-                  ),
-
-                  const SizedBox(height: 4),
-
-                  Text(
-                    item["title"] as String,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 142, 142, 142),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+          itemBuilder: (context, index) => _StatCard(
+            item: stats[index],
+            gradient: gradients[index],
+          ),
         ),
       ],
     );
   }
+}
+
+class _StatCard extends StatelessWidget {
+  final _StatItem item;
+  final LinearGradient gradient;
+
+  const _StatCard({required this.item, required this.gradient});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              gradient: gradient,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(item.icon, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  item.value,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey[800],
+                    height: 1.1,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  item.title,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Color.fromARGB(255, 115, 115, 115)
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatItem {
+  final String title;
+  final String value;
+  final IconData icon;
+
+  const _StatItem({
+    required this.title,
+    required this.value,
+    required this.icon,
+  });
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gosheep_mobile/core/widgets/animated_gradient_text.dart';
 import 'package:gosheep_mobile/routes/app_routes.dart';
 import '../../../core/widgets/custom_textfield.dart';
 
@@ -44,7 +45,25 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 60),
 
-                Image.asset('assets/images/goSheep_logo.png', height: 230),
+                Align(
+                  heightFactor: 0.85,
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    height: 230
+                  )
+                ),
+
+                const SizedBox(height: 2),
+
+                const AnimatedGradientText(
+                  'GoSheep',
+                  colors: [Color(0xFF2E7D32), Color(0xFF66BB6A)],
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
 
                 const SizedBox(height: 28),
 

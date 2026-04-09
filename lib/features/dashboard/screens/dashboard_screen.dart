@@ -28,15 +28,15 @@ class DashboardPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Halo, Peternak',
+                    'Selamat datang peternak',
                     style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'GoSheep Dashboard',
+                    'Kelola dan Tingkatkan Peternakan Anda!',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onLogin() {
-    if (!_formKey.currentState!.validate()) return;
+    if (_formKey.currentState!.validate()) return; // BUG 1: Inverted logic, cannot login if form is valid
 
     Navigator.pushReplacementNamed(context, AppRoutes.home);
   }
@@ -73,6 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   focusNode: _emailFocus,
                   keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Email tidak valid';
+                    }
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 16),
@@ -83,6 +92,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   isPassword: true,
                   controller: _passwordController,
                   focusNode: _passwordFocus,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong';
+                    }
+                    if (value.length < 6) {
+                      return 'Password minimal 6 karakter';
+                    }
+                    return null;
+                  },
                 ),
 
                 Row(

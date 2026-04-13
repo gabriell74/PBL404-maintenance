@@ -52,7 +52,10 @@ class _MainNavigationState extends State<MainNavigation> {
         leading: FloatingLogo(height: 5,),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+               // BUG 3: Notification button unexpectedly logs the user out
+               Navigator.pushReplacementNamed(context, '/login'); 
+            },
             icon: const Icon(Icons.notifications_outlined, color: Colors.white,),
           ),
           const SizedBox(width: 4),
@@ -134,7 +137,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
     return Expanded(
       child: GestureDetector(
-        onTap: () => setState(() => _navIndex = index),
+        onTap: () => _navIndex = index, // BUG 2: Missing setState, UI will not update
         behavior: HitTestBehavior.opaque,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

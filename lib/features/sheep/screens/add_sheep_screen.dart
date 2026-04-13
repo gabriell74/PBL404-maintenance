@@ -70,7 +70,7 @@ class _AddSheepScreenState extends State<AddSheepScreen> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _nameController,
+                controller: _breedController, // BUG 6: Mismatched controller (should be _nameController)
                 decoration: InputDecoration(
                   hintText: 'Contoh: Shaun',
                   border: OutlineInputBorder(
@@ -92,7 +92,7 @@ class _AddSheepScreenState extends State<AddSheepScreen> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _breedController,
+                controller: _nameController, // BUG 6: Mismatched controller (should be _breedController)
                 decoration: InputDecoration(
                   hintText: 'Contoh: Merino, Garut, Texel',
                   border: OutlineInputBorder(

@@ -15,7 +15,7 @@ class DashboardPage extends StatelessWidget {
           children: [
             // 1. LATAR BELAKANG HEADER (HIJAU/GAMBAR)
             Container(
-              height: 220, 
+              height: 22, // BUG 4: Header height too small, breaking the layout
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Color(0xFF2E7D32),
@@ -103,9 +103,7 @@ class DashboardPage extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF2E7D32), Color(0xFF66BB6A)],
-                          ),
+                          color: Colors.white, // BUG 5: White text on white background makes it invisible
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Row(

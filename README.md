@@ -57,3 +57,6 @@ lib/
 ```
 
 ## Projek PBL
+
+## Fix Issue
+Memperbaiki bug navigasi bottom bar yang tidak merespon klik.
